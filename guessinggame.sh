@@ -1,23 +1,28 @@
 #!/bin/bash
 clear
-dfcount=`ls|wc -l`
-guessfiles()
+dfcount=`ls -a|wc -l`
+guessfilecount()
 {
 	echo -n "Guess,how many files are in the current directory: "
-	read fcount
-	if [ $fcount -eq $dfcount ]
+	read gcount
+
+	if ! [[ "$gcount" =~ ^[0-9]+$ ]]
+	then
+		echo "Please try to provide only integers"
+
+	elif [ $gcount -eq $dfcount ]
 	then
 		echo "Congrats, Guessing is correct"
 		exit 0
-	elif [ $fcount -le $dfcount ]
+	elif [ $gcount -le $dfcount ]
 	then
 		echo "Try again, Guessing count is lessthan Actual count"
-	elif [ $fcount -gt $dfcount ]
+	elif [ $gcount -gt $dfcount ]
 	then
 		echo "Try again, Guessing count is greaterthan Actual count"
 	fi
 }
 while true
 do
-	guessfiles
+	guessfilecount
 done
